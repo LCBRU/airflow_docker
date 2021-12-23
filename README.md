@@ -8,6 +8,10 @@ Docker compose configuration for Airflow.
 
 https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html
 
+For LDAP configuration, see:
+
+https://github.com/astronomer/airflow-ldap-example
+
 ### Initialisation
 
 https://airflow.apache.org/docs/apache-airflow/stable/start/docker.html#initializing-environment
