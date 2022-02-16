@@ -5,7 +5,7 @@ x-airflow-common:
   build:
     context: airflow
     args:
-      AIRFLOW_IMAGE: apache/airflow:2.1.0
+      AIRFLOW_IMAGE: apache/airflow:2.2.3
       version: ${VERSION}
   environment:
     &airflow-common-env
@@ -23,8 +23,12 @@ x-airflow-common:
     AIRFLOW_CONN_IDENTITY: '${AIRFLOW_CONN_IDENTITY}'
     AIRFLOW_CONN_DWH: '${AIRFLOW_CONN_DWH}'
     AIRFLOW__LOGGING__FAB_LOGGING_LEVEL: '${AIRFLOW__LOGGING__FAB_LOGGING_LEVEL:-ERROR}'
+    ETL_DOWNLOAD_USERNAME: '${ETL_DOWNLOAD_USERNAME}'
+    ETL_DOWNLOAD_PASSWORD: '${ETL_DOWNLOAD_PASSWORD}'
+    ETL_ENCRYPTION_PASSWORD: '${ETL_ENCRYPTION_PASSWORD}'
   volumes:
     - ${LOG_DIRECTORY}:/opt/airflow/logs
+    - ${DAG_DIRECTORY}:/opt/airflow/dags
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
 
 services:
@@ -53,6 +57,8 @@ services:
   airflow-worker:
     <<: *airflow-common
     command: celery worker
+    ports:
+      - 8793:8793
     healthcheck:
       test:
         - "CMD-SHELL"
