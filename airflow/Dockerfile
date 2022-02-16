@@ -25,7 +25,9 @@ RUN apt-get clean
 RUN echo "$version"
 
 COPY requirements.txt .
+COPY constraints.txt .
+
 USER airflow
-RUN pip install --no-cache-dir --user -q -r requirements.txt
+RUN pip install --no-cache-dir --user -q -r requirements.txt -c constraints.txt
 
 COPY webserver_config.py .

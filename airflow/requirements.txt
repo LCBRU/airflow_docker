@@ -1,3 +1,4 @@
 python-ldap
-flask-appbuilder==3.2.2
+flask-appbuilder
 apache-airflow-providers-microsoft-mssql
+plyvel
