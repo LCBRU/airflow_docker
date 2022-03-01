@@ -3,6 +3,8 @@ ARG AIRFLOW_IMAGE
 FROM $AIRFLOW_IMAGE
 
 ARG version
+ARG AIRFLOW_VERSION
+ARG AIRFLOW_PYTHON_VERSION
 
 COPY packages.txt .
 USER root
@@ -23,11 +25,11 @@ RUN ACCEPT_EULA=Y apt-get -y install --no-install-recommends \
 RUN apt-get clean
 
 RUN echo "$version"
+RUN echo "$AIRFLOW_PYTHON_VERSION"
 
 COPY requirements.txt .
-COPY constraints.txt .
 
 USER airflow
-RUN pip install --no-cache-dir --user -q -r requirements.txt -c constraints.txt
+RUN pip install --no-cache-dir --user -q -r requirements.txt --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-$AIRFLOW_VERSION/constraints-$AIRFLOW_PYTHON_VERSION.txt"
 
 COPY webserver_config.py .
