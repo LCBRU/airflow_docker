@@ -2,3 +2,5 @@ python-ldap
 flask-appbuilder
 apache-airflow-providers-microsoft-mssql
 plyvel
+selenium
+-e git+https://github.com/LCBRU/lbrc_selenium.git@main#egg=lbrc_selenium
