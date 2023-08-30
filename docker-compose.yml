@@ -42,6 +42,9 @@ x-airflow-common:
     SCHEDULE_LOAD_WAREHOUSE: '${SCHEDULE_LOAD_WAREHOUSE}'
     LBRC_SELENIUM_HOST: '${LBRC_SELENIUM_HOST}'
     LBRC_SELENIUM_DOWNLOAD_DIRECTORY: '/opt/airflow/downloads'
+    DOWNLOAD_DIRECTORY: '/opt/airflow/downloads'
+    OUTPUT_DIRECTORY: '/opt/airflow/output'
+    SELENIUM_HOST: '${LBRC_SELENIUM_HOST}'
     AIRFLOW__SCHEDULER__MIN_FILE_PROCESS_INTERVAL: 120
     AIRFLOW__SCHEDULER__SCHEDULER_MAX_THREADS: 1
     AIRFLOW__SCHEDULER__SCHEDULER_HEARTBEAT_SEC: 2
@@ -54,6 +57,7 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_SSL: 'False'
     AIRFLOW__EMAIL__FROM_EMAIL: 'richard.a.bramley@uhl-tr.nhs.uk'
     ERROR_EMAIL_ADDRESS: '${ERROR_EMAIL_ADDRESS}'
+    EMAIL_ADDRESS: '${ERROR_EMAIL_ADDRESS}'
   volumes:
     - ${LOG_DIRECTORY}:/opt/airflow/logs
     - ${DAG_DIRECTORY}:/opt/airflow/dags
