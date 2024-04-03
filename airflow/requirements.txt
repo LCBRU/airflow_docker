@@ -1,6 +1,7 @@
 python-ldap
 flask-appbuilder
 apache-airflow-providers-microsoft-mssql
+apache-airflow-providers-celery
 plyvel
 selenium
 jsonlines
