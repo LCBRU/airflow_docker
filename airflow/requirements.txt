@@ -4,6 +4,8 @@ mysqlclient
 apache-airflow-providers-mysql
 apache-airflow-providers-microsoft-mssql
 apache-airflow-providers-celery
+mysql-connector-python
+apache-airflow-providers-common-sql
 plyvel
 selenium
 jsonlines
