@@ -1,14 +1,9 @@
 build-essential
 libsasl2-dev
 
-gcc
-libmariadb-dev-compat
-
-
 python3-dev
 libldap2-dev
 default-mysql-client
-apache-airflow-providers-mysql
 slapd
 ldap-utils
 ldapscripts
