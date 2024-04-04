@@ -1,14 +1,10 @@
 build-essential
 libsasl2-dev
 
-gcc
-libmariadb-dev-compat
 libmysqlclient-dev
 
 python3-dev
 libldap2-dev
-default-mysql-client
-default-libmysqlclient-dev
 slapd
 ldap-utils
 ldapscripts
