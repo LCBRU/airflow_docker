@@ -72,6 +72,7 @@ x-airflow-common:
     - ${LOG_DIRECTORY}:/opt/airflow/logs
     - ${DAG_DIRECTORY}:/opt/airflow/dags
     - ${DOWNLOAD_DIRECTORY}:/opt/airflow/downloads
+    - ${BACKUP_DIRECTORY}:/backup
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
 
 services:
@@ -102,8 +103,6 @@ services:
     command: celery worker
     ports:
       - 8793:8793
-    volumes:
-      - backup_drive:/backup_drive
     healthcheck:
       test:
         - "CMD-SHELL"
@@ -122,11 +121,3 @@ services:
       _AIRFLOW_WWW_USER_CREATE: 'false'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD}
-
-volumes:
-  backup_drive:
-    name: backup_drive
-    driver_opts:
-      type: nfs
-      o: "addr=UHLBRUBRISARC01,nolock,rw,soft"
-      device: ":/backups2"
