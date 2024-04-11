@@ -122,10 +122,11 @@ services:
       _AIRFLOW_WWW_USER_CREATE: 'false'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD}
-  volumes:
-    backup_drive:
-      name: backup_drive
-      driver_opts:
-       type: nfs
-       o: "addr=UHLBRUBRISARC01,nolock,rw,soft"
-       device: ":/backups2"
+
+volumes:
+  backup_drive:
+    name: backup_drive
+    driver_opts:
+      type: nfs
+      o: "addr=UHLBRUBRISARC01,nolock,rw,soft"
+      device: ":/backups2"
