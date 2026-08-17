@@ -117,22 +117,6 @@ services:
       retries: 50
     restart: always
 
-  airflow-webserver:
-    <<: *airflow-common
-    command: webserver
-    ports:
-      - ${PORT}:8080
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:${PORT}/health"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-    restart: always
-    depends_on:
-      <<: *airflow-common-depends-on
-      airflow-init:
-        condition: service_completed_successfully
-
   airflow-apiserver:
     <<: *airflow-common
     command: api-server
