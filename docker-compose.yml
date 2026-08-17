@@ -1,13 +1,7 @@
 ---
 x-airflow-common:
   &airflow-common
-  build:
-    context: airflow
-    args:
-      AIRFLOW_IMAGE: apache/airflow:${AIRFLOW_VERSION}-python${AIRFLOW_PYTHON_VERSION}
-      AIRFLOW_VERSION: ${AIRFLOW_VERSION}
-      AIRFLOW_PYTHON_VERSION: ${AIRFLOW_PYTHON_VERSION}
-      version: ${VERSION}
+  image: lcbruit/airflow
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
