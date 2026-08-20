@@ -9,14 +9,9 @@ x-airflow-common:
     - ${DAG_DIRECTORY}:/opt/airflow/dags
     - ${DOWNLOAD_DIRECTORY}:/opt/airflow/downloads
     - ${BACKUP_DIRECTORY}:/backup
-  user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
-  depends_on:
-    &airflow-common-depends-on
-    redis:
-      condition: service_healthy
+  user: "${AIRFLOW_UID}:${AIRFLOW_GID}"
 
 services:
-
   postgres:
     image: postgres:16
     environment:
@@ -32,18 +27,6 @@ services:
       start_period: 5s
     restart: always
 
-
-  redis:
-    image: redis:latest
-    expose:
-      - 6379
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 30s
-      retries: 50
-    restart: always
-
   airflow-apiserver:
     <<: *airflow-common
     command: api-server
@@ -57,7 +40,6 @@ services:
       start_period: 30s
     restart: always
     depends_on:
-      <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
 
@@ -71,10 +53,8 @@ services:
       retries: 5
     restart: always
     depends_on:
-      <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
 
   airflow-dag-processor:
     <<: *airflow-common
@@ -87,10 +67,8 @@ services:
       start_period: 30s
     restart: always
     depends_on:
-      <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
 
   airflow-worker:
     <<: *airflow-common
@@ -110,12 +88,10 @@ services:
       DUMB_INIT_SETSID: "0"
     restart: always
     depends_on:
-      <<: *airflow-common-depends-on
       airflow-apiserver:
         condition: service_healthy
       airflow-init:
         condition: service_completed_successfully
-
 
   airflow-triggerer:
     <<: *airflow-common
@@ -128,10 +104,8 @@ services:
       start_period: 30s
     restart: always
     depends_on:
-      <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
 
   airflow-init:
     <<: *airflow-common
