@@ -6,7 +6,6 @@ x-airflow-common:
     - .env
   volumes:
     - ${LOG_DIRECTORY}:/opt/airflow/logs
-    - ${DAG_DIRECTORY}:/opt/airflow/dags
     - ${DOWNLOAD_DIRECTORY}:/opt/airflow/downloads
     - ${BACKUP_DIRECTORY}:/backup
   user: "${AIRFLOW_UID}:${AIRFLOW_GID}"
