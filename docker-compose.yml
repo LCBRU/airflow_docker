@@ -178,8 +178,9 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
+    env_file:
+      - .env
     environment:
-      <<: *airflow-common-env
       # Required to handle warm shutdown of the celery workers properly
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
