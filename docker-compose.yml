@@ -37,7 +37,6 @@ services:
       timeout: 5s
       retries: 12
       start_period: 20s
-      start_interval: 2s
     restart: always
 
   airflow-scheduler:
