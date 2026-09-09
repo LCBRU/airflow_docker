@@ -38,9 +38,6 @@ services:
       retries: 5
       start_period: 30s
     restart: always
-    depends_on:
-      airflow-init:
-        condition: service_completed_successfully
 
   airflow-scheduler:
     <<: *airflow-common
@@ -53,9 +50,6 @@ services:
     restart: always
     volumes:
     - airflow-shared:/shared
-    depends_on:
-      airflow-init:
-        condition: service_completed_successfully
 
   airflow-dag-processor:
     <<: *airflow-common
@@ -69,9 +63,6 @@ services:
     restart: always
     volumes:
     - airflow-shared:/shared
-    depends_on:
-      airflow-init:
-        condition: service_completed_successfully
 
   airflow-worker:
     <<: *airflow-common
@@ -95,8 +86,6 @@ services:
     depends_on:
       airflow-apiserver:
         condition: service_healthy
-      airflow-init:
-        condition: service_completed_successfully
 
   airflow-triggerer:
     <<: *airflow-common
@@ -108,12 +97,11 @@ services:
       retries: 5
       start_period: 30s
     restart: always
-    depends_on:
-      airflow-init:
-        condition: service_completed_successfully
 
   airflow-init:
     <<: *airflow-common
+    profiles:
+      - init
     entrypoint: /bin/bash
     # yamllint disable rule:line-length
     command:
@@ -203,6 +191,9 @@ services:
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
       _PIP_ADDITIONAL_REQUIREMENTS: ''
+    depends_on:
+      postgres:
+        condition: service_healthy
     user: "0:0"
 
 volumes:
